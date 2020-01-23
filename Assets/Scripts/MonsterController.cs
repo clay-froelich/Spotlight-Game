@@ -9,11 +9,15 @@ public class MonsterController : MonoBehaviour
     public float rotationSpeed = 15f;
     public float knockbackForce = 5f;
     public GameObject target;
+    public AudioSource audioPlayer;
+    public AudioClip zombieSpawn;
 
     // Start is called before the first frame update
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player");
+        audioPlayer = GetComponent<AudioSource>();
+        audioPlayer.PlayOneShot(zombieSpawn);
     }
 
     // Update is called once per frame

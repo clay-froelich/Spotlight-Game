@@ -6,6 +6,7 @@ public class DetectCollisions : MonoBehaviour
 {
     public float elapsedTime = 0f;
     public float timeBeforeHealthDrain = 1.5f;
+    public AudioClip oof;
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Weapon" && gameObject.tag == "Monster") {
@@ -35,6 +36,8 @@ public class DetectCollisions : MonoBehaviour
             // player loses health
             HealthSystem playerhs = collisionInfo.collider.gameObject.GetComponent<HealthSystem>();
             playerhs.currentHealth -= 1;
+            AudioSource playeras = collisionInfo.collider.gameObject.GetComponent<AudioSource>();
+            playeras.PlayOneShot(oof);
 
             //player knocked back
             Vector3 moveDirection = new Vector3 (collisionInfo.collider.gameObject.transform.position.x - gameObject.transform.position.x, 

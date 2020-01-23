@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public int projectileLevel;
     private float horizontalInput;
     private float verticalInput;
+    public bool gameOver = false;
     void Start()
     {
         
@@ -30,26 +31,10 @@ public class PlayerController : MonoBehaviour
         // only execute when user gives input
         if (horizontalInput != 0 || verticalInput != 0) {
 
-            // boundary checking
-            /*if (transform.position.x > xBounds) {
-                transform.position = new Vector3(xBounds, transform.position.y, transform.position.z);
-            }
-            else if (transform.position.x < -xBounds) {
-                transform.position = new Vector3(-xBounds, transform.position.y, transform.position.z);
-            }
-
-            if (transform.position.z > zBounds) {
-                transform.position = new Vector3(transform.position.x, transform.position.y, zBounds);
-            }
-            else if (transform.position.z < -zBounds) {
-                transform.position = new Vector3(transform.position.x, transform.position.y, -zBounds);
-            }*/
-
             // rotate and move forward
             transform.rotation = Quaternion.LookRotation(lookDirection);
             Rigidbody playerRigidBody = gameObject.GetComponent<Rigidbody>();
             playerRigidBody.AddForce(lookDirection * Time.deltaTime * speed * 5, ForceMode.VelocityChange);
-            //transform.Translate(Vector3.forward * Time.deltaTime * speed);
         }
 
         // player attack
