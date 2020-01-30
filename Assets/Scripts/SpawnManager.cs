@@ -22,7 +22,7 @@ public class SpawnManager : MonoBehaviour
         Instantiate(boosts[1], new Vector3(Random.Range(-xBound, xBound), 0f, Random.Range(-zBound,zBound)), boosts[0].transform.rotation);
         float waitTime = Random.Range(30f, 90f);
         if (!gameManager.gameOver) {
-            Invoke("SpawnHealthUp", waitTime);
+            Invoke("SpawnWeaponUp", waitTime);
         }
     }
     
