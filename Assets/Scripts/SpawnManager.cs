@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject monster;
+    public GameObject[] monsters;
     public GameObject[] boosts;
-    public PlayerController playerController;
+    public GameManager gameManager;
     public bool gameOver;
     public float xBound = 24;
     public float zBound = 9.5f;
 
     void SpawnHealthUp() {
-        Instantiate(boosts[0], new Vector3(Random.Range(-xBound, xBound), 0.5f, Random.Range(-zBound,zBound)), boosts[0].transform.rotation);
+        Instantiate(boosts[0], new Vector3(Random.Range(-xBound, xBound), 0f, Random.Range(-zBound,zBound)), boosts[0].transform.rotation);
         float waitTime = Random.Range(30f, 90f);
         if (!gameOver) {
             Invoke("SpawnHealthUp", waitTime);
@@ -20,7 +20,7 @@ public class SpawnManager : MonoBehaviour
     }
 
     void SpawnWeaponUp() {
-        Instantiate(boosts[1], new Vector3(Random.Range(-xBound, xBound), 0.5f, Random.Range(-zBound,zBound)), boosts[0].transform.rotation);
+        Instantiate(boosts[1], new Vector3(Random.Range(-xBound, xBound), 0f, Random.Range(-zBound,zBound)), boosts[0].transform.rotation);
         float waitTime = Random.Range(30f, 90f);
         if (!gameOver) {
             Invoke("SpawnHealthUp", waitTime);
@@ -28,8 +28,9 @@ public class SpawnManager : MonoBehaviour
     }
     
     void SpawnMonster() {
-        Vector3 randomLocation = new Vector3(Random.Range(-xBound, xBound), 0.5f, Random.Range(-zBound, zBound));
-        Instantiate(monster, randomLocation, monster.transform.rotation);
+        int randIndex = Random.Range(0, monsters.Length);
+        Vector3 randomLocation = new Vector3(Random.Range(-xBound, xBound), 0f, Random.Range(-zBound, zBound));
+        Instantiate(monsters[randIndex], randomLocation, monsters[randIndex].transform.rotation);
         float randomWait = Random.Range(2f, 4f);
         if (!gameOver) {
             Invoke("SpawnMonster", randomWait);
@@ -38,14 +39,22 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        Invoke("SpawnMonster", 3f);
-        Invoke("SpawnHealthUp", 60f);
-        Invoke("SpawnWeaponUp", 90f);
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        
     }
 
     void Update() {
-        gameOver = playerController.gameOver;
+        gameOver = gameManager.gameOver;
+        if (gameManager.gameStart) {
+            StartSpawns();
+            gameManager.gameStart = false;
+        }
+    }
+    
+    public void StartSpawns() {
+        Invoke("SpawnMonster", 3f);
+        Invoke("SpawnHealthUp", 60f);
+        Invoke("SpawnWeaponUp", 90f);
     }
 
     

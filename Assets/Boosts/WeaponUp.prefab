@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4631514157429990367}
   - component: {fileID: 2262689605161664533}
   - component: {fileID: 7762363532927749787}
+  - component: {fileID: 3083886263273477938}
   m_Layer: 0
   m_Name: WeaponUp
   m_TagString: WeaponUp
@@ -92,3 +93,15 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3083886263273477938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4412301236982742758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 881b01b230fc29f47bcd5ff6c4f47050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

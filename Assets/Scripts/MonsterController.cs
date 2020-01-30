@@ -10,14 +10,14 @@ public class MonsterController : MonoBehaviour
     public float knockbackForce = 5f;
     public GameObject target;
     public AudioSource audioPlayer;
-    public AudioClip zombieSpawn;
+    public AudioClip spawnSound;
 
     // Start is called before the first frame update
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player");
         audioPlayer = GetComponent<AudioSource>();
-        audioPlayer.PlayOneShot(zombieSpawn);
+        audioPlayer.PlayOneShot(spawnSound);
     }
 
     // Update is called once per frame

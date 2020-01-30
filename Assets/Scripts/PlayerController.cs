@@ -13,9 +13,11 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
     public bool gameOver = false;
+    public ParticleSystem bloodSplatter;
+    public Animator playerAnim;
     void Start()
     {
-        
+        playerAnim = GetComponent<Animator>();
     }
 
     // Update is called once per frame

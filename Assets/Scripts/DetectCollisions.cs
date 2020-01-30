@@ -7,6 +7,7 @@ public class DetectCollisions : MonoBehaviour
     public float elapsedTime = 0f;
     public float timeBeforeHealthDrain = 1.5f;
     public AudioClip oof;
+    //public ParticleSystem bloodSplatter;
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Weapon" && gameObject.tag == "Monster") {
@@ -39,6 +40,10 @@ public class DetectCollisions : MonoBehaviour
             AudioSource playeras = collisionInfo.collider.gameObject.GetComponent<AudioSource>();
             playeras.PlayOneShot(oof);
 
+            // player blood splatter
+            PlayerController playerController = collisionInfo.collider.gameObject.GetComponent<PlayerController>();
+            playerController.bloodSplatter.Play();
+            
             //player knocked back
             Vector3 moveDirection = new Vector3 (collisionInfo.collider.gameObject.transform.position.x - gameObject.transform.position.x, 
                                                 0, collisionInfo.collider.gameObject.transform.position.z - gameObject.transform.position.z).normalized;

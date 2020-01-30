@@ -6,29 +6,26 @@ public class HealthSystem : MonoBehaviour
 {
     public int maxHealth;
     public int currentHealth;
-    public PlayerController playerController;
+    public GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
-    
-    IEnumerator WaitTime(float time) {
-        yield return new WaitForSeconds(time);
-    }
     void Update()
     {
         if (currentHealth <= 0) {
             if (gameObject.CompareTag("Player")) {
-                playerController.gameOver = true;
-
+                gameManager.gameOver = true;
+                gameManager.GameOver();
             }
-            else if (gameObject.CompareTag("Monster")) {
-                Animator monsterAnim = gameObject.GetComponent<Animator>();
-                monsterAnim.SetBool("isDead", true);
-                WaitTime(1);
+            else if (gameObject.name == "Boximon Fiery(Clone)") {
+                gameManager.redKills++;
+            }
+            else if (gameObject.name == "Boximon Cyclopes(Clone)") {
+                gameManager.blueKills++;
             }
             Destroy(gameObject);
         }

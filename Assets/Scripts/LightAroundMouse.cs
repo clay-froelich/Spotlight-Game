@@ -7,10 +7,24 @@ public class LightAroundMouse : MonoBehaviour
     public float mouseX;
     public float yFromCamera = 18f;
     public float mouseZ;
+    public float decreaseTime = 5f;
+    public Light light;
+
+    public GameManager gameManager;
+    
+    void DecreaseLight() {
+        if (light.range > 17 && !gameManager.gameOver) {
+            light.range -= 0.1f;
+        }
+        Invoke("DecreaseLight", decreaseTime);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        light = GetComponent<Light>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        Invoke("DecreaseLight", decreaseTime);
     }
 
     // Update is called once per frame
@@ -18,8 +32,6 @@ public class LightAroundMouse : MonoBehaviour
     {
         mouseX = Input.mousePosition.x;
         mouseZ = Input.mousePosition.y;
-        Debug.Log(Camera.main.ScreenToWorldPoint(new Vector3(mouseX, mouseZ, yFromCamera)));
         transform.position = (Camera.main.ScreenToWorldPoint(new Vector3(mouseX, mouseZ, yFromCamera)) + new Vector3(0, yFromCamera, 0));
-
     }
 }
