@@ -7,14 +7,13 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] monsters;
     public GameObject[] boosts;
     public GameManager gameManager;
-    public bool gameOver;
     public float xBound = 24;
     public float zBound = 9.5f;
 
     void SpawnHealthUp() {
         Instantiate(boosts[0], new Vector3(Random.Range(-xBound, xBound), 0f, Random.Range(-zBound,zBound)), boosts[0].transform.rotation);
         float waitTime = Random.Range(30f, 90f);
-        if (!gameOver) {
+        if (!gameManager.gameOver) {
             Invoke("SpawnHealthUp", waitTime);
         }
     }
@@ -22,7 +21,7 @@ public class SpawnManager : MonoBehaviour
     void SpawnWeaponUp() {
         Instantiate(boosts[1], new Vector3(Random.Range(-xBound, xBound), 0f, Random.Range(-zBound,zBound)), boosts[0].transform.rotation);
         float waitTime = Random.Range(30f, 90f);
-        if (!gameOver) {
+        if (!gameManager.gameOver) {
             Invoke("SpawnHealthUp", waitTime);
         }
     }
@@ -32,7 +31,7 @@ public class SpawnManager : MonoBehaviour
         Vector3 randomLocation = new Vector3(Random.Range(-xBound, xBound), 0f, Random.Range(-zBound, zBound));
         Instantiate(monsters[randIndex], randomLocation, monsters[randIndex].transform.rotation);
         float randomWait = Random.Range(2f, 4f);
-        if (!gameOver) {
+        if (!gameManager.gameOver) {
             Invoke("SpawnMonster", randomWait);
         }
     }
@@ -40,15 +39,9 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        
     }
 
     void Update() {
-        gameOver = gameManager.gameOver;
-        if (gameManager.gameStart) {
-            StartSpawns();
-            gameManager.gameStart = false;
-        }
     }
     
     public void StartSpawns() {

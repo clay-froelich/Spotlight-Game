@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI blueKillText;
     public TextMeshProUGUI percentLightText;
     public TextMeshProUGUI rulesText;
+    public TextMeshProUGUI healthText;
     public GameObject titleScreen;
     public Button restartButton;
     public int redKills = 0;
@@ -43,7 +44,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateLightText() {
         int lightPercent = (int)((light.range - 17) * 100 / 5);
-        percentLightText.text = "Spotlight Strength: " + lightPercent + "%";
+        percentLightText.text = "Spotlight Strength: " + lightPercent + "%%";
     }
     public void RestartGame() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -51,7 +52,12 @@ public class GameManager : MonoBehaviour
 
     public void StartGame() {
         titleScreen.gameObject.SetActive(false);
+        healthText.gameObject.SetActive(true);
         gameStart = true;
+    }
+
+    public void UpdateHealth(int health) {
+        healthText.text = "health: " + health;
     }
 
     public void ToggleRules() {

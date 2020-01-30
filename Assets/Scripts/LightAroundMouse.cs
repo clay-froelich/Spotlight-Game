@@ -13,7 +13,7 @@ public class LightAroundMouse : MonoBehaviour
     public GameManager gameManager;
     
     void DecreaseLight() {
-        if (light.range > 17 && !gameManager.gameOver) {
+        if (light.range > 17 && !gameManager.gameOver && gameManager.gameStart) {
             light.range -= 0.1f;
         }
         Invoke("DecreaseLight", decreaseTime);

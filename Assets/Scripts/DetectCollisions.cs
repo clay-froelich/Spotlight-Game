@@ -35,10 +35,12 @@ public class DetectCollisions : MonoBehaviour
     {
         if (collisionInfo.collider.tag == "Player" && gameObject.tag == "Monster") {
             // player loses health
-            HealthSystem playerhs = collisionInfo.collider.gameObject.GetComponent<HealthSystem>();
-            playerhs.currentHealth -= 1;
             AudioSource playeras = collisionInfo.collider.gameObject.GetComponent<AudioSource>();
             playeras.PlayOneShot(oof);
+            HealthSystem playerhs = collisionInfo.collider.gameObject.GetComponent<HealthSystem>();
+            playerhs.currentHealth -= 1;
+            GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+            gameManager.UpdateHealth(playerhs.currentHealth);
 
             // player blood splatter
             PlayerController playerController = collisionInfo.collider.gameObject.GetComponent<PlayerController>();
